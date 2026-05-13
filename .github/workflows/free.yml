@@ -1,3 +1,4 @@
+
 name: 02 - 💚  رایگان (کیفیت پایین)
 
 on:
@@ -10,7 +11,7 @@ on:
 
 jobs:
   get-video-free:
-    name: "📥 دانلود رایگان (360p)"
+    name: "📥 دانلود رایگان (720p)"
     runs-on: ubuntu-latest
     timeout-minutes: 180
     permissions:
@@ -26,7 +27,7 @@ jobs:
           echo ""
           echo "⚠️ این نسخه رایگان است و محدودیت‌های زیر را دارد:"
           echo ""
-          echo "   ❌ کیفیت پایین (360p)"
+          echo "   ❌ کیفیت پایین (720p)"
           echo "   ❌ بدون انتخاب کیفیت"
           echo "   ❌ بدون دانلود MP3"
           echo "   ❌ بدون زیرنویس"
@@ -98,7 +99,7 @@ jobs:
           deno --version
           pip3 install --upgrade yt-dlp
 
-      - name: Download YouTube Video (Free - 360p)
+      - name: Download YouTube Video (Free - 720p)
         env:
           YT_URLS: ${{ github.event.inputs.video_urls }}
           REPO_OWNER_ENV: ${{ github.repository_owner }}
@@ -111,8 +112,8 @@ jobs:
           URLS_RAW="${YT_URLS}"
           read -ra URL_LIST <<< "$URLS_RAW"
           TOTAL_URLS=${#URL_LIST[@]}
-          QUALITY="360"
-          FORMAT="bestvideo[height<=360]+bestaudio/bestvideo[height<=360]*+bestaudio*/best[height<=360]/best"
+          QUALITY="720"
+          FORMAT="bestvideo[height<=720]+bestaudio/bestvideo[height<=720]*+bestaudio*/best[height<=720]/best"
           SPLIT_MB=45
           SPLIT_BYTES=$(( SPLIT_MB * 1024 * 1024 ))
           BACKUP_DIR="/tmp/video_backup_$$"
@@ -121,7 +122,7 @@ jobs:
           > /tmp/video_info.txt
 
           echo "========================================"
-          echo "🆓 نسخه رایگان - کیفیت 360p"
+          echo "🆓 نسخه رایگان - کیفیت 720p"
           echo "========================================"
           echo "Total URLs to download: $TOTAL_URLS"
 
@@ -228,7 +229,7 @@ jobs:
                 {
                   printf '%s\n' "# ${FILENAME_NO_EXT}"
                   printf '%s\n' ""
-                  printf '%s\n' "> 🆓 **نسخه رایگان** - کیفیت 360p"
+                  printf '%s\n' "> 🆓 **نسخه رایگان** - کیفیت 720p"
                   printf '%s\n' "> برای کیفیت بالاتر، MP3، زیرنویس و رمزگذاری به [workflow شماره 01](../../actions) بروید"
                   printf '%s\n' ""
                   if [ -f "$BACKUP_DIR/${FINAL_FOLDER_NAME}/thumbnail.jpg" ]; then
@@ -248,7 +249,7 @@ jobs:
                   printf '%s\n' "| **Video Name** | \`${FILENAME_NO_EXT}\` |"
                   printf '%s\n' "| **Original Link** | [YouTube Video](${URL}) |"
                   printf '%s\n' "| **Total Size** | **${PART_COUNT} parts** - **${TOTAL_SIZE_MB} MB** |"
-                  printf '%s\n' "| **Quality** | **360p (Free)** |"
+                  printf '%s\n' "| **Quality** | **720p (Free)** |"
                   printf '%s\n' ""
                   printf '%s\n' "---"
                   printf '%s\n' ""
@@ -273,7 +274,7 @@ jobs:
                 {
                   printf '%s\n' "# ${FILENAME_NO_EXT}"
                   printf '%s\n' ""
-                  printf '%s\n' "> 🆓 **نسخه رایگان** - کیفیت 360p"
+                  printf '%s\n' "> 🆓 **نسخه رایگان** - کیفیت 720p"
                   printf '%s\n' "> برای کیفیت بالاتر، MP3، زیرنویس و رمزگذاری به [workflow شماره 01](../../actions) بروید"
                   printf '%s\n' ""
                   if [ -f "$BACKUP_DIR/${FINAL_FOLDER_NAME}/thumbnail.jpg" ]; then
@@ -293,7 +294,7 @@ jobs:
                   printf '%s\n' "| **Video Name** | \`${FILENAME_NO_EXT}\` |"
                   printf '%s\n' "| **Original Link** | [YouTube Video](${URL}) |"
                   printf '%s\n' "| **Total Size** | **${SIZE_MB} MB** |"
-                  printf '%s\n' "| **Quality** | **360p (Free)** |"
+                  printf '%s\n' "| **Quality** | **720p (Free)** |"
                   printf '%s\n' ""
                   printf '%s\n' "---"
                   printf '%s\n' ""
@@ -361,7 +362,7 @@ jobs:
           git add -f videos/README.md
 
           if ! git diff --cached --quiet; then
-            git commit -m "[AVASAM-FREE] YouTube download 360p [skip ci]"
+            git commit -m "[AVASAM-FREE] YouTube download 720p [skip ci]"
             PUSH_RETRY=0
             while [ $PUSH_RETRY -lt 10 ]; do
               PUSH_RETRY=$((PUSH_RETRY + 1))
@@ -371,7 +372,7 @@ jobs:
                 echo "✅ دانلود با موفقیت انجام شد!"
                 echo "========================================"
                 echo ""
-                echo "🆓 این نسخه رایگان بود (360p)"
+                echo "🆓 این نسخه رایگان بود (720p)"
                 echo ""
                 echo "✨ برای کیفیت بالاتر، MP3، زیرنویس و رمزگذاری:"
                 echo "   به workflow شماره 01 بروید"
@@ -388,7 +389,7 @@ jobs:
                 git add -f videos/
                 regenerate_master_readme
                 git add -f videos/README.md
-                git diff --cached --quiet || git commit -m "[AVASAM-FREE] YouTube download 360p [skip ci]"
+                git diff --cached --quiet || git commit -m "[AVASAM-FREE] YouTube download 720p [skip ci]"
               fi
             done
           fi
